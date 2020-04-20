@@ -1,0 +1,54 @@
+/*    Name        Nick Hogenkamp
+ *    Database    fitness.db
+ *    Date        19-4-2020
+ */
+ 
+DROP TABLE IF EXISTS Workout;
+DROP TABLE IF EXISTS Exercise;
+
+create table Workout(
+    WORKOUT_ID             INTEGER PRIMARY KEY AUTOINCREMENT,
+    WORKOUT_NAME           TEXT
+);
+    
+create table Exercise(
+    EXERCISE_ID INTEGER    PRIMARY KEY AUTOINCREMENT,
+    EXERCISE_NAME          TEXT,
+    WORKOUT_ID             INTEGER,
+    
+    FOREIGN KEY(WORKOUT_ID) REFERENCES Workout(WORKOUT_ID)
+);
+
+/* Add workouts*/
+INSERT INTO Workout(WORKOUT_NAME)
+VALUES("Upperbody");
+INSERT INTO Workout(WORKOUT_NAME)
+VALUES("Lowerbody");
+
+
+/* Add exercises to workout 1 upperbody*/
+INSERT INTO Exercise(EXERCISE_NAME, WORKOUT_ID)
+VALUES("Bench press", 1);
+INSERT INTO Exercise(EXERCISE_NAME, WORKOUT_ID)
+VALUES("Pull up", 1);
+INSERT INTO Exercise(EXERCISE_NAME, WORKOUT_ID)
+VALUES("Bicep curls", 1);
+
+/* Add exercises to workout 2 lowerbody*/
+INSERT INTO Exercise(EXERCISE_NAME, WORKOUT_ID)
+VALUES("Squat", 2);
+INSERT INTO Exercise(EXERCISE_NAME, WORKOUT_ID)
+VALUES("Deadlift", 2);
+INSERT INTO Exercise(EXERCISE_NAME, WORKOUT_ID)
+VALUES("Leg curl", 2);
+  
+SELECT * FROM Workout;
+SELECT * FROM Exercise;
+
+-- Select all exercise of workout 1 full body
+SELECT Workout.WORKOUT_ID, Exercise.EXERCISE_NAME FROM Workout INNER JOIN Exercise on Workout.WORKOUT_ID = Exercise.WORKOUT_ID WHERE Workout.WORKOUT_ID = 1;
+
+-- Select all exercise of workout 2 push
+SELECT Workout.WORKOUT_ID, Exercise.EXERCISE_NAME FROM Workout INNER JOIN Exercise on Workout.WORKOUT_ID = Exercise.WORKOUT_ID WHERE Workout.WORKOUT_ID = 2;
+
+
